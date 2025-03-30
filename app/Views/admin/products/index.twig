@@ -1,0 +1,47 @@
+{% extends "admin/layout.twig" %}
+
+{% set title = "Products - Quản lý Quán Cà Phê" %}
+{% set active = "products" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mb-4">Quản lý Sản phẩm</h1>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Danh sách Sản phẩm</h4>
+            <a href="/admin/products/create" class="btn btn-primary">Thêm Sản phẩm</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Danh mục</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price }} VNĐ</td>
+                            <td>{{ product.stock_quantity }}</td>
+                            <td>{{ product.category_name }}</td>
+                            <td>
+                                <a href="/admin/products/edit/{{ product.id }}" class="btn btn-sm btn-primary">Sửa</a>
+                                <a href="/admin/products/delete/{{ product.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

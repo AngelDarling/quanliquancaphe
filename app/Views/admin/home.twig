@@ -1,0 +1,34 @@
+{% extends "admin/layout.twig" %}
+
+{% set title = "Dashboard - Quản lý Quán Cà Phê" %}
+{% set active = "dashboard" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="text-center mb-4">Dashboard Quản lý Quán Cà Phê</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Tổng quan đơn hàng</h4>
+                </div>
+                <div class="card-body">
+                    <p>Số đơn hàng hôm nay: {{ orders_today }}</p>
+                    <p>Tổng doanh thu: {{ total_revenue }} VNĐ</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Tổng quan sản phẩm</h4>
+                </div>
+                <div class="card-body">
+                    <p>Số sản phẩm trong kho: {{ product_count }}</p>
+                    <p>Sản phẩm sắp hết: {{ low_stock }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

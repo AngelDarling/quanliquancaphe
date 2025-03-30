@@ -1,0 +1,44 @@
+{% extends "admin/layout.twig" %}
+{% set title = 'Manage Purchases' %}
+{% set active = 'purchases' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Danh sách đơn nhập</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Đơn nhập hàng</h5>
+            <a href="/admin/purchases/create" class="btn btn-primary">Thêm đơn nhập</a>
+        </div>
+        <div class="card-body">
+            {% if purchases is defined and purchases|length > 0 %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Admin</th>
+                        <th>Ngày nhập</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in purchases %}
+                    <tr>
+                        <td>{{ purchase.id }}</td>
+                        <td>{{ purchase.admin_name }}</td>
+                        <td>{{ purchase.purchase_date|date('d/m/Y') }}</td>
+                        <td>
+                            <a href="/admin/purchases/edit/{{ purchase.id }}" class="btn btn-primary btn-sm">Sửa</a>
+                            <a href="/admin/purchases/delete/{{ purchase.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Không có đơn nhập nào.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

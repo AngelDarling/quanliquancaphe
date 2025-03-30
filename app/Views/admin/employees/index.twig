@@ -1,0 +1,50 @@
+{% extends "admin/layout.twig" %}
+{% set title = 'Manage Staffs' %}
+{% set active = 'staffs' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Danh sách nhân viên</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Nhân viên</h5>
+            <a href="/admin/staffs/create" class="btn btn-primary">Thêm nhân viên</a>
+        </div>
+        <div class="card-body">
+            {% if staffs is defined and staffs|length > 0 %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Vai trò</th>
+                        <th>Ảnh</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for staff in staffs %}
+                    <tr>
+                        <td>{{ staff.id }}</td>
+                        <td>{{ staff.name }}</td>
+                        <td>{{ staff.email }}</td>
+                        <td>{{ staff.phone }}</td>
+                        <td>{{ staff.role_name }}</td>
+                        <td><img src="{{ asset('assets/img/staff_img/' ~ staff.avatar) }}" alt="{{ staff.name }}" style="width: 100px;"></td>
+                        <td>
+                            <a href="/admin/staffs/edit/{{ staff.id }}" class="btn btn-primary btn-sm">Sửa</a>
+                            <a href="/admin/staffs/delete/{{ staff.id }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Không có nhân viên nào.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

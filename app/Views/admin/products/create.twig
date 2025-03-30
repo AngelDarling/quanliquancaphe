@@ -1,0 +1,76 @@
+{% extends "admin/layout.twig" %}
+
+{% set title = "Add Product - Quản lý Quán Cà Phê" %}
+{% set active = "products" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mb-4">Thêm Sản phẩm mới</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Thông tin Sản phẩm</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/products/store" enctype="multipart/form-data">
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Tên Sản phẩm:</b></label>
+                    <div class="col-md-8">
+                        <input type="text" name="name" class="form-control" placeholder="Nhập tên sản phẩm" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Giá:</b></label>
+                    <div class="col-md-8">
+                        <input type="number" name="price" class="form-control" placeholder="Nhập giá (VNĐ)" step="1000" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Số lượng:</b></label>
+                    <div class="col-md-8">
+                        <input type="number" name="stock_quantity" class="form-control" placeholder="Nhập số lượng" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Danh mục:</b></label>
+                    <div class="col-md-8">
+                        <select name="category_id" class="form-control" required>
+                            <option value="" selected disabled hidden>-- Chọn danh mục --</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Nguồn cung cấp:</b></label>
+                    <div class="col-md-8">
+                        <select name="supplier_id" class="form-control" required>
+                            <option value="" selected disabled hidden>-- Chọn nhà cung cấp --</option>
+                            {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Mô tả:</b></label>
+                    <div class="col-md-8">
+                        <textarea name="description" class="form-control" placeholder="Nhập mô tả sản phẩm" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-md-2 col-form-label"><b>Hình ảnh:</b></label>
+                    <div class="col-md-8">
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <button type="submit" class="btn btn-primary">Thêm Sản phẩm</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

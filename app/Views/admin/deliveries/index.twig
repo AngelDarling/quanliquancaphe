@@ -1,0 +1,57 @@
+{% extends "admin/layout.twig" %}
+
+{% set title = "Deliveries - Quản lý Quán Cà Phê" %}
+{% set active = "deliveries" %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="mb-4">Quản lý Đơn Giao Hàng</h1>
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Danh sách Đơn Giao Hàng</h4>
+            <a href="/admin/deliveries/create" class="btn btn-primary">Thêm Đơn Giao</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nhà cung cấp giao hàng</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày hoàn thành</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for delivery in deliveries %}
+                        <tr>
+                            <td>{{ delivery.id }}</td>
+                            <td>{{ delivery.provider_name }}</td>
+                            <td>{{ delivery.address }}</td>
+                            <td>{{ delivery.start_date|date('d/m/Y') }}</td>
+                            <td>{{ delivery.completion_date|date('d/m/Y') }}</td>
+                            <td>
+                                {% if delivery.status == 'pending' %}
+                                    <span class="badge bg-primary">Chưa bắt đầu</span>
+                                {% elseif delivery.status == 'in_progress' %}
+                                    <span class="badge bg-warning">Đang giao</span>
+                                {% else %}
+                                    <span class="badge bg-success">Hoàn thành</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/admin/deliveries/edit/{{ delivery.id }}" class="btn btn-sm btn-primary">Sửa</a>
+                                <a href="/admin/deliveries/delete/{{ delivery.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

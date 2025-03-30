@@ -1,0 +1,108 @@
+{% extends 'admin/layouts/main.twig' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-12">
+			<div class="card mb-4">
+				<div class="card-header pb-0">
+					<h6>Danh sách danh mục</h6>
+				</div>
+				<div class="card-body px-3 pt-0 pb-2">
+					<div class="table-responsive p-0">
+						<table class="table align-items-center mb-0">
+							<thead>
+								<tr>
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mã</th>
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên danh mục</th>
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hình ảnh</th>
+									<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hành động</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for category in categories %}
+									<tr>
+										<td>{{ category.id }}</td>
+										<td>{{ category.name }}</td>
+										<td><img src="/assets/img/category_img/{{ category.image }}" width="50"></td>
+										<td>
+											<button class="edit-btn btn btn-link text-primary font-weight-bold text-sm" data-id="{{ category.id }}" data-name="{{ category.name }}">
+												Sửa
+											</button>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+		.overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 99999;
+			background: rgba(0, 0, 0, 0.5);
+			display: none;
+		}
+		.my-box {
+			width: 30%;
+			height: auto;
+			background-color: #fff;
+			border-radius: 10px;
+			position: absolute;
+			padding: 15px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+
+	<div class="overlay" id="overlay">
+		<div class="my-box">
+			<h5 class="ms-3 mt-3 text-primary">Cập nhật danh mục</h5>
+			<form action="/admin/categories/update" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="id" id="temp_id">
+				<div class="mb-3 mt-4 px-3">
+					<label>Tên danh mục</label>
+					<input class="form-control form-control-lg mt-1" name="name" id="category_name">
+				</div>
+				<div class="row">
+					<div class="col-12 d-flex justify-content-center align-items-center">
+						<button type="submit" class="btn btn-primary text-white font-weight-bold text-md ms-0 mt-4">
+							Cập nhật
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		const editButtons = document.querySelectorAll('.edit-btn');
+editButtons.forEach(button => {
+button.addEventListener('click', function (event) {
+const id = event.target.getAttribute('data-id');
+const name = event.target.getAttribute('data-name');
+
+document.getElementById('temp_id').value = id;
+document.getElementById('category_name').value = name;
+
+const overlay = document.getElementById('overlay');
+overlay.style.display = 'block';
+});
+});
+
+const overlay = document.getElementById('overlay');
+overlay.addEventListener('click', function (event) {
+if (event.target === overlay) {
+overlay.style.display = 'none';
+}
+});
+	</script>
+{% endblock %}

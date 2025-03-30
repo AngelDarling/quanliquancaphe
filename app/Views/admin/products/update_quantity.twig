@@ -1,0 +1,23 @@
+{% extends "admin/layout.twig" %}
+{% set title = 'Update Product Quantity' %}
+{% set active = 'products' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Nhập thêm số lượng sản phẩm</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>Nhập thêm số lượng: {{ product.name }}</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/products/update-quantity/{{ product.id }}">
+                <div class="mb-3">
+                    <label for="quantity" class="form-label">Số lượng nhập thêm</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Nhập thêm</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

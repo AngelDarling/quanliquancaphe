@@ -1,0 +1,28 @@
+{% extends "admin/layout.twig" %}
+{% set title = 'Edit Category' %}
+{% set active = 'categories' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-4">Sửa danh mục</h2>
+    <div class="card">
+        <div class="card-header">
+            <h5>Sửa danh mục: {{ category.name }}</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/categories/update/{{ category.id }}" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for "name" class="form-label">Tên danh mục</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ category.name }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Ảnh danh mục (tải lại nếu cần)</label>
+                    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    <img src="{{ asset('assets/img/product_img/' ~ category.image) }}" alt="{{ category.name }}" style="width: 100px; margin-top: 10px;">
+                </div>
+                <button type="submit" class="btn btn-primary">Cập nhật</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
